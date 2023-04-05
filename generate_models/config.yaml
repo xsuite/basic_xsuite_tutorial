@@ -1,0 +1,133 @@
+config_mad:
+    # Links to be made for tools and scripts
+    links:
+      acc-models-lhc: ../../hllhc15
+
+    # Optics file
+    optics_file: acc-models-lhc/round/opt_round_150_1500_thin.madx
+
+    # Beam parameters
+    beam_config:
+      lhcb1:
+        beam_energy_tot: 7000           # [GeV]
+      lhcb2:
+        beam_energy_tot: 7000           # [GeV]
+
+    # Enable machine imperfections
+    enable_imperfections: false
+
+    # Enable knob synthesis (for coupling correction, if no imperfections)
+    enable_knob_synthesis: false
+
+    # Optics version, for choice of correction algorithms
+    # (ver_lhc_run or ver_hllhc_optics)
+    ver_hllhc_optics: 1.5
+    ver_lhc_run: null
+
+    # Parameters for machine imperfections
+    pars_for_imperfections:
+      par_myseed: 1
+      par_correct_for_D2: 0
+      par_correct_for_MCBX: 0
+      par_on_errors_LHC: 1
+      par_off_errors_Q4_inIP15: 0
+      par_off_errors_Q5_inIP15: 0
+      par_on_errors_MBH: 1
+      par_on_errors_Q4: 1
+      par_on_errors_D2: 1
+      par_on_errors_D1: 1
+      par_on_errors_IT: 1
+      par_on_errors_MCBRD: 0
+      par_on_errors_MCBXF: 0
+      par_on_errors_NLC: 0
+      par_write_errortable: 1
+
+config_knobs_and_tuning:
+
+    knob_settings:
+
+      # Orbit knobs
+      on_x1: 250            # [urad]
+      on_sep1: 0            # [mm]
+      on_x2: -170           # [urad]
+      on_sep2: 0.138        # [mm]
+      on_x5: 250            # [urad]
+      on_sep5: 0            # [mm]
+      on_x8: -250           # [urad]
+      on_sep8: -0.043       # [mm]
+      on_a1: 0              # [urad]
+      on_o1: 0              # [mm]
+      on_a2: 0              # [urad]
+      on_o2: 0              # [mm]
+      on_a5: 0              # [urad]
+      on_o5: 0              # [mm]
+      on_a8: 0              # [urad]
+      on_o8: 0              # [mm]
+      on_disp: 1            # Value to choose could be optics-dependent
+
+      # Crab cavities
+      on_crab1: -190        # [urad]
+      on_crab5: -190        # [urad]
+
+      # Magnets of the experiments
+      on_alice_normalized: 1
+      on_lhcb_normalized: 1
+      on_sol_atlas: 0
+      on_sol_cms: 0
+      on_sol_alice: 0
+
+      # RF voltage and phases
+      vrf400:       16.0            # [MV]
+      lagrf400.b1:   0.5            # [rad]
+      lagrf400.b2:   0.             # [rad]
+
+      # Octupoles
+      i_oct_b1:     -235            # [A]
+      i_oct_b2:     -235            # [A]
+
+    closed_orbit_correction:
+      lhcb1: corr_co_lhcb1.json
+      lhcb2: corr_co_lhcb2.json
+
+    # Tunes and chromaticities
+    qx:
+      lhcb1: 62.31
+      lhcb2: 62.31
+    qy:
+      lhcb1: 60.32
+      lhcb2: 60.32
+    dqx:
+      lhcb1: 5
+      lhcb2: 5
+    dqy:
+      lhcb1: 6
+      lhcb2: 6
+
+    knob_names:
+      lhcb1:
+        q_knob_1: kqtf.b1
+        q_knob_2: kqtd.b1
+        dq_knob_1: ksf.b1
+        dq_knob_2: ksd.b1
+        c_minus_knob_1: c_minus_re_b1
+        c_minus_knob_2: c_minus_im_b1
+      lhcb2:
+        q_knob_1: kqtf.b2
+        q_knob_2: kqtd.b2
+        dq_knob_1: ksf.b2
+        dq_knob_2: ksd.b2
+        c_minus_knob_1: c_minus_re_b2
+        c_minus_knob_2: c_minus_im_b2
+
+config_beambeam:
+    bunch_spacing_buckets: 10
+    num_slices_head_on: 11
+    num_long_range_encounters_per_side:
+      ip1: 25
+      ip2: 20
+      ip5: 25
+      ip8: 20
+    sigma_z: 0.076
+    num_particles_per_bunch: 2.2e11
+    nemitt_x: 2.5e-6
+    nemitt_y: 2.5e-6
