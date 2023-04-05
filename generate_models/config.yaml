@@ -1,7 +1,7 @@
 config_mad:
     # Links to be made for tools and scripts
     links:
-      acc-models-lhc: ../../hllhc15
+      acc-models-lhc: ../../../hllhc15
 
     # Optics file
     optics_file: acc-models-lhc/round/opt_round_150_1500_thin.madx
@@ -63,15 +63,15 @@ config_knobs_and_tuning:
       on_o5: 0              # [mm]
       on_a8: 0              # [urad]
       on_o8: 0              # [mm]
-      on_disp: 1            # Value to choose could be optics-dependent
+      # on_disp: 1            # Value to choose could be optics-dependent
 
       # Crab cavities
-      on_crab1: -190        # [urad]
-      on_crab5: -190        # [urad]
+      # on_crab1: -190        # [urad]
+      # on_crab5: -190        # [urad]
 
       # Magnets of the experiments
-      on_alice_normalized: 1
-      on_lhcb_normalized: 1
+      # on_alice_normalized: 1
+      # on_lhcb_normalized: 1
       on_sol_atlas: 0
       on_sol_cms: 0
       on_sol_alice: 0
@@ -82,8 +82,8 @@ config_knobs_and_tuning:
       lagrf400.b2:   0.             # [rad]
 
       # Octupoles
-      i_oct_b1:     -235            # [A]
-      i_oct_b2:     -235            # [A]
+      # i_oct_b1:     -235            # [A]
+      # i_oct_b2:     -235            # [A]
 
     closed_orbit_correction:
       lhcb1: corr_co_lhcb1.json

@@ -38,5 +38,9 @@ collider = xmlhc.build_xsuite_collider(
     ver_lhc_run=config_mad_model['ver_lhc_run'],
     ver_hllhc_optics=config_mad_model['ver_hllhc_optics'])
 
+conf_knobs_and_tuning = config['config_knobs_and_tuning']
+for kk, vv in conf_knobs_and_tuning['knob_settings'].items():
+    collider.vars[kk] = vv
+
 # Save to file
 collider.to_json('collider_00_from_mad.json')
