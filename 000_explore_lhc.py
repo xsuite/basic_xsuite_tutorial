@@ -4,7 +4,10 @@ import matplotlib.pyplot as plt
 import xpart as xp
 import xtrack as xt
 
-fname_model = './generate_models/collider_00_from_mad.json'
+fname_model = './generate_models/lhc_at_collisions.json'
+
+nemitt_x = 2.5e-6
+nemitt_y = 2.5e-6
 
 collider = xt.Multiline.from_json(fname_model)
 collider.build_trackers()
@@ -24,13 +27,52 @@ collider.lhcb1['mb.b18l3.b1..1'].to_dict() # shows its properties
 collider.lhcb1['mqwa.a4l3.b1..2']
 collider.lhcb1['mqwa.a4l3.b1..2'].to_dict() # shows its properties
 
-
 # Twiss (computes orbit, optics and other quentities of interest)
 twb1 = collider.lhcb1.twiss()
 twb2 = collider.lhcb2.twiss().reverse() # to have the two in the same reference frame
 
+#### Measure tune
+
+num_turns = 500
+
+p_co = twb1.particle_on_co.copy()
+
+collider.lhcb1.track(p_co, num_turns=num_turns, turn_by_turn_monitor=True)
+mon_co = collider.lhcb1.record_last_track
+
+p1 = twb1.particle_on_co.copy()
+p1.x += 0.1e-3
+p1.y += 0.2e-3
+collider.lhcb1.track(p1, num_turns=num_turns, turn_by_turn_monitor=True)
+mon1 = collider.lhcb1.record_last_track
+
 tw = twb1
 plt.close('all')
+
+# Plot turn-by-turn data
+fig100 = plt.figure(100, figsize=(6.4, 4.8*1.5))
+spx = plt.subplot(2,1,1)
+spy = plt.subplot(2,1,2, sharex=spx)
+spx.plot(mon_co.x.T)
+spx.plot(mon1.x.T)
+spy.plot(mon_co.y.T)
+spy.plot(mon1.y.T)
+spy.set_xlabel('Turn')
+spx.set_ylabel('x [m]')
+spy.set_ylabel('y [m]')
+
+# Plot the transverse spectrum
+fig101 = plt.figure(101, figsize=(6.4, 4.8*1.5))
+spx = plt.subplot(2,1,1)
+spy = plt.subplot(2,1,2, sharex=spx)
+freq_axis = np.fft.rfftfreq(n=num_turns)
+spx.plot(freq_axis, np.abs(np.fft.rfft(mon1.x[0, :])))
+spy.plot(freq_axis, np.abs(np.fft.rfft(mon1.y[0, :])))
+
+
+
+
+
 fig1 = plt.figure(1, figsize=(6.4, 4.8*1.5))
 spbet = plt.subplot(2,1,1)
 spco = plt.subplot(2,1,2, sharex=spbet)

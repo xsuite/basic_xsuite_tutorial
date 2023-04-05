@@ -7,8 +7,11 @@ import xmask.lhc as xmlhc
 # Import user-defined optics-specific tools
 import optics_specific_tools_hlhc15 as ost
 
+config_fname = 'config_collisions.yaml'
+out_fname = 'lhc_at_collisions.json'
+
 # Read config file
-with open('config.yaml','r') as fid:
+with open(config_fname, 'r') as fid:
     config = xm.yaml.load(fid)
 config_mad_model = config['config_mad']
 
@@ -43,4 +46,4 @@ for kk, vv in conf_knobs_and_tuning['knob_settings'].items():
     collider.vars[kk] = vv
 
 # Save to file
-collider.to_json('collider_00_from_mad.json')
+collider.to_json(out_fname)
