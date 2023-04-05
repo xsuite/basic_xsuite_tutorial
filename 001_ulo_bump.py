@@ -53,6 +53,48 @@ i_most_losses = Counter(lost_particles.at_element).most_common(1)[0][0]
 print(f'The element where we loose most particles is called '
       f'`{collider.lhcb1.element_names[i_most_losses]}`.')
 
+# Plot the lost particles and the obstacle
+obstacle = collider.lhcb1['obstacle']
+fig2 = plt.figure(2)
+plt.plot(lost_particles.x, lost_particles.y, '.', markersize=1)
+plt.plot(obstacle.x_vertices, obstacle.y_vertices, 'k')
+
+s_obstacle = tw['s', 'obstacle']
+element_close_to_obstacle = 'mb.c15r8.b1'
+
+# Find vertical correctors close to the obstacle
+tw.rows[s_obstacle-300.:s_obstacle+300.:'s', 'mcbv.*']
+
+# Find out the knob that controls
+collider.lhcb1.element_refs['mcbv.15r8.b1'].ksl[0]._expr
+
+collider.lhcb1_co_ref.match(
+    method='4d',
+    ele_start='bpm.10r8.b1',
+    ele_stop='bpm.18r8.b1',
+    twiss_init=tw.get_twiss_init(at_element='bpm.10r8.b1'),
+    vary=[
+        xt.Vary(name='acbv11.r8b1', step=1e-10),
+        xt.Vary(name='acbv13.r8b1', step=1e-10),
+        xt.Vary(name='acbv15.r8b1', step=1e-10),
+        xt.Vary(name='acbv17.r8b1', step=1e-10),
+    ],
+    targets=[
+        # I want the vertical orbit to be at 10 mm the obstable with flat angle
+        xt.Target('y', at=element_close_to_obstacle, value=10e-3, tol=1e-4, scale=1),
+        xt.Target('py', at=element_close_to_obstacle, value=0, tol=1e-6, scale=1000),
+        # I want the bump to be closed
+        xt.Target('y', at='bpm.18r8.b1', value=tw['y', 'bpm.18r8.b1'],
+                  tol=1e-6, scale=1),
+        xt.Target('py', at='bpm.18r8.b1', value=tw['py', 'bpm.18r8.b1'],
+                   tol=1e-7, scale=1000),
+    ]
+)
+
+fig3 = plt.figure(3)
+tw = collider.lhcb1.twiss()
+spco = plt.subplot(2,1,1)
+spco.plot(tw['s'], tw['y'], label='y')
 
 plt.show()
 
