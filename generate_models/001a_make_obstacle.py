@@ -2,6 +2,7 @@ import scipy.io as sio
 import xtrack as xt
 
 chamber_data = sio.loadmat('LHC_chm_ver.mat')
+
 chamber = xt.LimitPolygon(
     x_vertices=chamber_data['Vx'][0],
     y_vertices=chamber_data['Vy'][0])
@@ -29,10 +30,6 @@ vx += list(vx0[-3:]) + [vx0[0]-1e-12]
 vy += list(vy0[-3:]) + [vy0[0]-1e-12]
 
 obstacle = xt.LimitPolygon(
-    x_vertices=vx,
-    y_vertices=vy)
-
-chamber = xt.LimitPolygon(
     x_vertices=vx,
     y_vertices=vy)
 

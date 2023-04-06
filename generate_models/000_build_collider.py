@@ -7,8 +7,8 @@ import xmask.lhc as xmlhc
 # Import user-defined optics-specific tools
 import optics_specific_tools_hlhc15 as ost
 
-config_fname = 'config_injection.yaml'
-out_fname = 'lhc_at_injection.json'
+config_fname = 'config_collisions.yaml'
+out_fname = 'lhc_at_collisions.json'
 
 # Read config file
 with open(config_fname, 'r') as fid:
