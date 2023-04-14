@@ -1,3 +1,4 @@
+import sys
 from collections import Counter
 
 import numpy as np
@@ -119,7 +120,7 @@ collider.lhcb1_co_ref.match(
     ],
     targets=[
         # I want the vertical orbit to be at 1 mm from obstacle with flat angle
-        xt.Target('y', at=element_close_to_obstacle, value=1e-3, tol=1e-4, scale=1),
+        xt.Target('y', at=element_close_to_obstacle, value=1.5e-3, tol=1e-4, scale=1),
         xt.Target('py', at=element_close_to_obstacle, value=0, tol=1e-6, scale=1000),
         # I want the bump to be closed
         xt.Target('y', at='bpm.18r8.b1', value=tw['y', 'bpm.18r8.b1'],
@@ -159,7 +160,7 @@ collider.lhcb1.element_refs['mcbh.14r8.b1'].knl[0]._expr  # => acbh14.r8b1
 collider.lhcb1_co_ref.match(
     method='4d',
     ele_start='bpm.10r8.b1',
-    ele_stop='bpm.18r8.b1',
+    ele_stop='bpm.20r8.b1',
     twiss_init=tw.get_twiss_init(at_element='bpm.10r8.b1'),
     vary=[
         xt.Vary(name='acbh12.r8b1', step=1e-10),
@@ -169,12 +170,12 @@ collider.lhcb1_co_ref.match(
     ],
     targets=[
         # I want the vertical orbit to be at 1 mm from obstacle with flat angle
-        xt.Target('x', at=element_close_to_obstacle, value=1e-3, tol=1e-4, scale=1),
+        xt.Target('x', at=element_close_to_obstacle, value=-3e-3, tol=1e-4, scale=1),
         xt.Target('px', at=element_close_to_obstacle, value=0, tol=1e-6, scale=1000),
         # I want the bump to be closed
-        xt.Target('x', at='bpm.18r8.b1', value=tw['x', 'bpm.18r8.b1'],
+        xt.Target('x', at='bpm.20r8.b1', value=tw['x', 'bpm.20r8.b1'],
                   tol=1e-6, scale=1),
-        xt.Target('px', at='bpm.18r8.b1', value=tw['px', 'bpm.18r8.b1'],
+        xt.Target('px', at='bpm.20r8.b1', value=tw['px', 'bpm.20r8.b1'],
                    tol=1e-7, scale=1000),
     ]
 )
