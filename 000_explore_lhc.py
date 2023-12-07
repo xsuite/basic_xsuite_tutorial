@@ -27,7 +27,7 @@ collider.lhcb1['mb.b18l3.b1..1'].to_dict() # shows its properties
 collider.lhcb1['mqwa.a4l3.b1..2']
 collider.lhcb1['mqwa.a4l3.b1..2'].to_dict() # shows its properties
 
-# Twiss (computes orbit, optics and other quentities of interest)
+# Twiss (computes orbit, optics and other quantities of interest)
 twb1 = collider.lhcb1.twiss()
 twb2 = collider.lhcb2.twiss().reverse() # to have the two in the same reference frame
 
